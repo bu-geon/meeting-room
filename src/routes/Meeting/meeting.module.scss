@@ -1,0 +1,16 @@
+.meeting {
+  display: flex;
+
+  .content {
+    flex: 0.75;
+  }
+
+  .sideBar {
+    display: flex;
+    flex: 0.25;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    border: 2px solid greenyellow;
+  }
+}

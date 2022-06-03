@@ -1,0 +1,32 @@
+@use '/src/styles/constants/colors';
+
+.sideBar {
+  display: flex;
+  flex: 0.25;
+  flex-direction: column;
+  height: 100vh;
+  padding: 10px 30px;
+  background-color: colors.$SUB_BACKGROUND;
+}
+
+.roomsList {
+  border: 2px solid salmon;
+
+  .dropdown {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+
+    :last-child {
+      margin-left: auto;
+    }
+  }
+
+  .plus {
+    cursor: pointer;
+
+    & :hover {
+      fill: darkorange;
+    }
+  }
+}
