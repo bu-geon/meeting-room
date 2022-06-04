@@ -1,10 +1,14 @@
 import { NavLink } from 'react-router-dom'
 import styles from './room.module.scss'
 
-const Room = () => {
+interface Props {
+  name: string
+}
+
+const Room = ({ name }: Props) => {
   return (
     <NavLink to='meeting'>
-      <h4 className={styles.roomTitle}>채널임다</h4>
+      <h4 className={styles.roomTitle}>{name}</h4>
     </NavLink>
   )
 }
