@@ -1,21 +1,58 @@
+@use '/src/styles/constants/colors';
+
 .meeting {
   display: flex;
 
   .content {
-    flex: 0.75;
+    flex: 1;
+    padding: 20px;
+    background-color: colors.$MAIN_BACKGROUND;
   }
 
   .sideBar {
     display: flex;
-    flex: 0.25;
     flex-direction: column;
     align-items: center;
+    width: 300px;
     height: 100vh;
-    border: 2px solid greenyellow;
+    padding: 20px;
   }
 }
 
 .personalMenu {
   display: flex;
-  align-items: center;
+  width: 100%;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    fill: colors.$ICON;
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: contain;
+  }
+
+  .profile {
+    display: flex;
+    margin-left: auto;
+  }
+}
+
+.notify {
+  position: relative;
+}
+
+.notify::after {
+  position: absolute;
+  right: 7px;
+  width: 5px;
+  height: 5px;
+  content: '';
+  background-color: red;
+  border-radius: 50%;
 }

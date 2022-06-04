@@ -4,8 +4,9 @@
   display: flex;
   max-width: 2000px;
   height: 100vh;
+  color: colors.$MAIN_FONT;
 
   main {
-    flex: 0.75;
+    flex: 1;
   }
 }

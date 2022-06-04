@@ -1,18 +1,15 @@
+import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { auth } from 'services/firebase'
+import { login, logout, selectUser } from 'features/userSlice'
 
 import styles from './routes.module.scss'
-import { login, logout, selectUser } from 'features/userSlice'
 
 import GNB from './_shared/GNB'
 import Meeting from './Meeting'
 import Login from './Login'
-import { useEffect } from 'react'
-import { auth } from 'services/firebase'
-
-document.cookie = 'safeCookie1=foo; SameSite=Lax'
-document.cookie = 'safeCookie2=foo'
-document.cookie = 'crossCookie=bar; SameSite=None; Secure'
+import Home from './Home'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -20,7 +17,6 @@ const App = () => {
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
-      console.log('current user:', authUser)
       if (authUser) {
         // login
         dispatch(
@@ -46,6 +42,7 @@ const App = () => {
           <GNB />
           <main>
             <Routes>
+              <Route path='/' element={<Home />} />
               <Route path='meeting' element={<Meeting />} />
             </Routes>
           </main>

@@ -1,15 +1,16 @@
 import { initializeApp } from 'firebase/app'
-import { addDoc, collection, getDocs, getFirestore } from 'firebase/firestore'
+import { addDoc, collection, getFirestore, serverTimestamp } from 'firebase/firestore'
 import { getAuth, GoogleAuthProvider } from 'firebase/auth'
+import { IUserInfo } from 'types/user'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBbTo1kMghpEHK8999HihRCo_SdQEBcm3Y',
-  authDomain: 'meeting-room-accba.firebaseapp.com',
-  projectId: 'meeting-room-accba',
-  storageBucket: 'meeting-room-accba.appspot.com',
-  messagingSenderId: '1024571896879',
-  appId: '1:1024571896879:web:646cfe8de58a7ccee842da',
-  measurementId: 'G-BQ9YM90685',
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 }
 
 const app = initializeApp(firebaseConfig)
@@ -17,23 +18,21 @@ const db = getFirestore(app)
 export const auth = getAuth(app)
 export const provider = new GoogleAuthProvider()
 
-export const getRooms = async (setRooms: (param: any) => void) => {
-  const roomsCol = collection(db, 'rooms')
-  const roomSnapshot = await getDocs(roomsCol)
-  const roomList = roomSnapshot.docs.map((doc) => doc.data())
-
-  setRooms(roomList)
+export const addRoom = async (roomName: string) => {
+  await addDoc(collection(db, 'rooms'), {
+    name: roomName,
+  })
 }
 
-export const addRoom = async (roomName: string) => {
-  try {
-    const docRef = await addDoc(collection(db, 'rooms'), {
-      name: roomName,
-    })
-    console.log('Document written with ID: ', docRef.id)
-  } catch (e) {
-    console.error('Error adding document: ', e)
-  }
+export const sendMessage = async (roomId: string, message: string, user: IUserInfo) => {
+  console.log(roomId)
+  await addDoc(collection(db, 'rooms', roomId, 'messages'), {
+    timestamp: serverTimestamp(),
+    message,
+    user,
+  })
+
+  console.log('sent!!!!')
 }
 
 export default db

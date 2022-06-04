@@ -1,12 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-interface appState {
-  userId: any
-  userName: any
+interface IAppState {
+  userId: string | null
+  userName: string | null
 }
 
-// Define the initial state using that type
-const initialState: appState = {
+const initialState: IAppState = {
   userId: null,
   userName: null,
 }
@@ -16,14 +15,14 @@ export const appSlice = createSlice({
   initialState,
   reducers: {
     setUserId: (state, action) => {
-      state.userId += action.payload
+      state.userId = action.payload
     },
   },
 })
 
 export const { setUserId } = appSlice.actions
 
-export const selectUserId = (state: any) => state.app.userId
-export const selectUserName = (state: any) => state.app.userName
+export const selectUserId = (state: { app: IAppState }) => state.app.userId
+export const selectUserName = (state: { app: IAppState }) => state.app.userName
 
 export default appSlice.reducer

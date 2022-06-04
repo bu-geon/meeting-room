@@ -1,16 +1,18 @@
+import { Notify, Setting } from 'assets'
+import { auth } from 'services/firebase'
+import { useSelector } from 'react-redux'
+import { selectUser } from 'features/userSlice'
+import { selectRoomName } from 'features/roomSlice'
+import { IUserInfo } from 'types/user'
+
 import styles from './meeting.module.scss'
 
 import Chats from './Chats'
 import Todos from './Todos'
-import { Alarm, Setting } from 'assets'
-import { useSelector } from 'react-redux'
-import { selectUser } from 'features/userSlice'
-import { IUserInfo } from 'types/user'
-import { auth } from 'services/firebase'
 
 const Meeting = () => {
-  const user: IUserInfo = useSelector(selectUser)
-  console.log('Meeting', user)
+  const user: IUserInfo | null = useSelector(selectUser)
+  const currentRoom = useSelector(selectRoomName)
 
   const singOut = () => {
     auth.signOut()
@@ -18,15 +20,16 @@ const Meeting = () => {
 
   return (
     <div className={styles.meeting}>
-      <div className={styles.content}>Meeting Room</div>
+      <div className={styles.content}>{currentRoom}</div>
       <div className={styles.sideBar}>
         <div className={styles.personalMenu}>
           <Setting />
-          <Alarm />
+          <div className={styles.notify}>
+            <Notify className={styles.alarm} />
+          </div>
           <div className={styles.profile}>
-            <img src={user.profile} alt='profile' />
-            <h3>{user.displayName}</h3>
-            <p>#{user.email}</p>
+            <img src={user!.profile} alt='profile' />
+            <h3>{user!.displayName}</h3>
             <button type='button' onClick={singOut}>
               logout
             </button>

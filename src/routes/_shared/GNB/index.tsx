@@ -1,46 +1,57 @@
-import { Dropdown, Plus } from 'assets'
+import { collection, DocumentData, onSnapshot } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import db, { addRoom, getRooms } from 'services/firebase'
+import db, { addRoom } from 'services/firebase'
+
 import styles from './gnb.module.scss'
+import { Dropdown, Plus } from 'assets'
+
 import Room from './Room'
 
-interface IRoom {
-  name: string
+interface IRoomInfo {
+  id: string
+  room: DocumentData
 }
 
 const GNB = () => {
-  const [rooms, setRooms] = useState([])
+  const [rooms, setRooms] = useState<IRoomInfo[]>([])
+  const [toggleRoomsDropdown, setToggleRoomsDropdown] = useState(true)
 
   const handleAddRoom = () => {
     const roomName = prompt('방 이름을 입력해주세요.')
 
-    if (roomName!.trim().length > 0) {
+    if (roomName && roomName!.trim().length > 0) {
       addRoom(roomName!)
     }
   }
 
+  const handleShowRoomsDropdown = () => {
+    setToggleRoomsDropdown((prev) => !prev)
+  }
+
   useEffect(() => {
-    getRooms(setRooms)
+    onSnapshot(collection(db, 'rooms'), (snapshot) => {
+      setRooms(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          room: doc.data(),
+        }))
+      )
+    })
   }, [])
 
   return (
-    <div className={styles.sideBar}>
+    <div className={styles.gnb}>
       Side Bar
-      <div className={styles.roomsList}>
-        <div className={styles.dropdown}>
-          <Dropdown width={30} height={30} />
-          ROOMS
-          <Plus width={30} height={30} onClick={handleAddRoom} />
-        </div>
-        {rooms.map((room: IRoom) => (
-          <Room key={room.name} name={room.name} />
-        ))}
-      </div>
+      <button className={styles.dropdown} type='button' onClick={handleShowRoomsDropdown}>
+        <Dropdown />
+        ROOMS
+        <Plus onClick={handleAddRoom} />
+      </button>
+      {toggleRoomsDropdown && rooms.map((doc: IRoomInfo) => <Room key={doc.id} id={doc.id} name={doc.room.name} />)}
       <div className={styles.dropdown}>
-        <Dropdown width={30} height={30} />
+        <Dropdown />
         MEMBERS
-        <Plus className={styles.plus} width={30} height={30} />
+        <Plus />
       </div>
     </div>
   )
