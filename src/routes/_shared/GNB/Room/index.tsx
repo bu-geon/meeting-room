@@ -1,5 +1,6 @@
 import { setCurrentRoom } from 'features/roomSlice'
 import { useDispatch } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 
 import styles from './room.module.scss'
 
@@ -21,12 +22,9 @@ const Room = ({ id, name }: Props) => {
   }
 
   return (
-    // <NavLink to='meeting' onClick={handleMoveRoom}>
-
-    <button type='button' onClick={handleMoveRoom}>
+    <NavLink to='meeting' onClick={handleMoveRoom}>
       <h4 className={styles.roomName}>{name}</h4>
-    </button>
-    // </NavLink>
+    </NavLink>
   )
 }
 
