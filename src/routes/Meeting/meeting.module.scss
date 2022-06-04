@@ -16,11 +16,17 @@
     width: 300px;
     height: 100vh;
     padding: 20px;
+    background-color: colors.$WHITE;
+  }
+
+  .sideBar > :last-child {
+    margin-top: auto;
   }
 }
 
 .personalMenu {
   display: flex;
+  align-items: center;
   width: 100%;
 
   svg {
@@ -33,13 +39,25 @@
   img {
     width: 20px;
     height: 20px;
+    margin-right: 5px;
     border-radius: 50%;
     object-fit: contain;
   }
 
   .profile {
     display: flex;
+    align-items: center;
     margin-left: auto;
+
+    button {
+      padding: 3px 8px;
+      margin-left: 11px;
+      font-size: 12px;
+      line-height: 12px;
+      color: colors.$LOGOUT;
+      border: 1px solid colors.$LOGOUT;
+      border-radius: 10px;
+    }
   }
 }
 

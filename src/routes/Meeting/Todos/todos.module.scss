@@ -8,4 +8,19 @@
   overflow-y: scroll;
   background-color: colors.$TODOS_BACKGROUND;
   border-radius: 8px;
+
+  .addtodo {
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.todo {
+  input[type='checkbox'] {
+    width: 10px;
+    height: 10px;
+    border: 1px salmon solid;
+  }
 }

@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 interface IChannelState {
-  roomId: string | null
-  roomName: string | null
+  roomId: string
+  roomName: string
 }
 
 const initialState: IChannelState = {
-  roomId: null,
-  roomName: null,
+  roomId: 'b1N8vpsqfmeHdsfAVgTx',
+  roomName: 'Conference Room',
 }
 
 export const roomSlice = createSlice({

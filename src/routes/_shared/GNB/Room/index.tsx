@@ -1,8 +1,9 @@
-import { setCurrentRoom } from 'features/roomSlice'
-import { useDispatch } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { selectRoomName, setCurrentRoom } from 'features/roomSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import cx from 'classnames'
 
 import styles from './room.module.scss'
+import { Conversation } from 'assets'
 
 interface Props {
   id: string
@@ -11,6 +12,7 @@ interface Props {
 
 const Room = ({ id, name }: Props) => {
   const dispatch = useDispatch()
+  const currentRoom = useSelector(selectRoomName)
 
   const handleMoveRoom = () => {
     dispatch(
@@ -22,9 +24,16 @@ const Room = ({ id, name }: Props) => {
   }
 
   return (
-    <NavLink to='meeting' onClick={handleMoveRoom}>
-      <h4 className={styles.roomName}>{name}</h4>
-    </NavLink>
+    <li>
+      <button
+        className={cx(styles.selectRoom, { [styles.active]: currentRoom === name })}
+        type='button'
+        onClick={handleMoveRoom}
+      >
+        <Conversation />
+        {name}
+      </button>
+    </li>
   )
 }
 

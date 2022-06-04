@@ -40,13 +40,15 @@ const GNB = () => {
 
   return (
     <div className={styles.gnb}>
-      Side Bar
+      BUKIM
       <button className={styles.dropdown} type='button' onClick={handleShowRoomsDropdown}>
         <Dropdown />
         ROOMS
         <Plus onClick={handleAddRoom} />
       </button>
-      {toggleRoomsDropdown && rooms.map((doc: IRoomInfo) => <Room key={doc.id} id={doc.id} name={doc.room.name} />)}
+      <ul>
+        {toggleRoomsDropdown && rooms.map((doc: IRoomInfo) => <Room key={doc.id} id={doc.id} name={doc.room.name} />)}
+      </ul>
       <div className={styles.dropdown}>
         <Dropdown />
         MEMBERS

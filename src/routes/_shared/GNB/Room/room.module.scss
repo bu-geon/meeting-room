@@ -1,11 +1,32 @@
 @use '/src/styles/constants/colors';
 
-.roomName {
+.selectRoom {
+  width: 100%;
   padding: 10px 14px;
+  overflow-x: hidden;
   font-size: 14px;
+  color: colors.$MAIN_FONT;
+  text-align: left;
+  text-decoration: none;
+  text-overflow: ellipsis;
+
+  svg {
+    position: relative;
+    top: 2px;
+    width: 14px;
+    height: 14px;
+    margin-right: 6px;
+    line-height: 14px;
+    fill: colors.$MAIN_FONT;
+    // fill: gold;
+  }
 }
 
-.roomName:hover {
-  color: bisque;
-  background-color: hotpink;
+.active {
+  background-color: colors.$MENU_ACTIVE;
+  border-radius: 8px;
+
+  svg {
+    fill: #2a3ce4;
+  }
 }

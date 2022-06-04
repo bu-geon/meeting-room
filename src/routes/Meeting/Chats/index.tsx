@@ -1,10 +1,14 @@
+import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { selectRoomId } from 'features/roomSlice'
 import { selectUser } from 'features/userSlice'
 import { collection, onSnapshot } from 'firebase/firestore'
-import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import db, { sendMessage } from 'services/firebase'
+import cx from 'classnames'
+
 import styles from './chats.module.scss'
+
+import { Send } from 'assets'
 
 const Chats = () => {
   const [input, setInput] = useState('')
@@ -42,20 +46,18 @@ const Chats = () => {
   return (
     <div className={styles.chats}>
       <h4>CHATS</h4>
-      <div className={styles.chatsLog}>
-        <ul>
-          {messages.map((el: any) => (
-            <li className={styles.message} key={el.id}>
-              <img src={el.user.profile} alt='user profile' />
-              {el.content}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul className={styles.chatsLog}>
+        {messages.map((el: any) => (
+          <li className={cx(styles.message, { [styles.mine]: el.user.uid === user?.uid })} key={el.id}>
+            <img src={el.user.profile} alt='user profile' />
+            <span className={styles.text}>{el.content}</span>
+          </li>
+        ))}
+      </ul>
       <form onSubmit={handleSendMessage}>
         <input type='text' value={input} placeholder='Type Something' onChange={handleChangeInput} />
-        <button type='submit' onClick={handleSendMessage}>
-          Send
+        <button className={styles.sendButton} type='submit' onClick={handleSendMessage}>
+          <Send className={styles.send} />
         </button>
       </form>
     </div>
