@@ -17,7 +17,7 @@ const GNB = () => {
   const [toggleRoomsDropdown, setToggleRoomsDropdown] = useState(true)
 
   const handleAddRoom = () => {
-    const roomName = prompt('방 이름을 입력해주세요.')
+    // const roomName = prompt('방 이름을 입력해주세요.')
 
     if (roomName && roomName!.trim().length > 0) {
       addRoom(roomName!)
