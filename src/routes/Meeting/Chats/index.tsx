@@ -9,7 +9,6 @@ const Chats = () => {
   const [input, setInput] = useState('')
   const roomId = useSelector(selectRoomId)
   const user = useSelector(selectUser)
-  const [messages, setMessages] = useState([])
 
   const handleSendMessage = (e: FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()

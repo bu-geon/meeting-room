@@ -1,6 +1,5 @@
 import { setCurrentRoom } from 'features/roomSlice'
 import { useDispatch } from 'react-redux'
-import { NavLink } from 'react-router-dom'
 
 import styles from './room.module.scss'
 

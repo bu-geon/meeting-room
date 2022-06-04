@@ -25,14 +25,11 @@ export const addRoom = async (roomName: string) => {
 }
 
 export const sendMessage = async (roomId: string, message: string, user: IUserInfo) => {
-  console.log(roomId)
   await addDoc(collection(db, 'rooms', roomId, 'messages'), {
     timestamp: serverTimestamp(),
     message,
     user,
   })
-
-  console.log('sent!!!!')
 }
 
 export default db

@@ -25,7 +25,6 @@ export const { setCurrentRoom } = roomSlice.actions
 
 export const selectRoomId = (state: { room: IChannelState }) => state.room.roomId
 export const selectRoomName = (state: { room: IChannelState }) => {
-  console.log('1111', state)
   return state.room.roomName
 }
 
