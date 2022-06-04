@@ -6,10 +6,15 @@ import { Alarm, Setting } from 'assets'
 import { useSelector } from 'react-redux'
 import { selectUser } from 'features/userSlice'
 import { IUserInfo } from 'types/user'
+import { auth } from 'services/firebase'
 
 const Meeting = () => {
   const user: IUserInfo = useSelector(selectUser)
   console.log('Meeting', user)
+
+  const singOut = () => {
+    auth.signOut()
+  }
 
   return (
     <div className={styles.meeting}>
@@ -20,8 +25,11 @@ const Meeting = () => {
           <Alarm />
           <div className={styles.profile}>
             <img src={user.profile} alt='profile' />
-            <h3>{user!.displayName}</h3>
-            <p>#thisismyid</p>
+            <h3>{user.displayName}</h3>
+            <p>#{user.email}</p>
+            <button type='button' onClick={singOut}>
+              logout
+            </button>
           </div>
         </div>
         <Todos />
