@@ -14,7 +14,10 @@ const Chats = () => {
 
   const handleSendMessage = (e: FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    sendMessage(roomId!, input, user!)
+
+    if (input.trim().length > 0) {
+      sendMessage(roomId!, input, user!)
+    }
     setInput('')
   }
 
