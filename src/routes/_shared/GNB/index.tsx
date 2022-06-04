@@ -18,10 +18,9 @@ const GNB = () => {
 
   const handleAddRoom = () => {
     // const roomName = prompt('방 이름을 입력해주세요.')
-
-    if (roomName && roomName!.trim().length > 0) {
-      addRoom(roomName!)
-    }
+    // if (roomName && roomName!.trim().length > 0) {
+    //   addRoom(roomName!)
+    // }
   }
 
   const handleShowRoomsDropdown = () => {
