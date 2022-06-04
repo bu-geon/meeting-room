@@ -1,6 +1,6 @@
 import { collection, DocumentData, onSnapshot } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
-import db, { addRoom } from 'services/firebase'
+import db from 'services/firebase'
 
 import styles from './gnb.module.scss'
 import { Dropdown, Plus } from 'assets'
