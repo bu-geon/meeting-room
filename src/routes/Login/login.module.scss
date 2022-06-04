@@ -1,18 +1,38 @@
 @use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
 
 .login {
-  height: 100vh;
-  margin: auto;
+  margin-top: 70%;
+  text-align: center;
+
+  .summary {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 2;
+  }
+
+  .signIn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 40px;
+    margin: 40px auto 0;
+    font-size: 14px;
+    line-height: 14px;
+    background-color: #ffffff;
+    border-radius: 8px;
+
+    svg {
+      width: 14px;
+      height: 14px;
+      margin-right: 18px;
+    }
+  }
 }
 
-.signIn {
-  width: 300px;
-  padding: 10px;
-  border: 2px solid goldenrod;
-  border-radius: 8px;
-}
-
-.signIn:hover {
-  color: red;
-  background-color: gray;
+@include responsive.after(LD) {
+  .login {
+    margin: auto;
+  }
 }

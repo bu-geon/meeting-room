@@ -1,12 +1,21 @@
 @use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
 
 .app {
-  display: flex;
-  max-width: 2000px;
   height: 100vh;
+  padding: 10px;
   color: colors.$MAIN_FONT;
+  background-color: colors.$MAIN_BACKGROUND;
+}
 
-  main {
-    flex: 1;
+@include responsive.after(LD) {
+  .app {
+    display: flex;
+    max-width: 2000px;
+    padding: 0;
+
+    main {
+      flex: 1;
+    }
   }
 }
