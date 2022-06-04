@@ -45,7 +45,10 @@ const Chats = () => {
       <div className={styles.chatsLog}>
         <ul>
           {messages.map((el: any) => (
-            <li key={el.id}>{el.content}</li>
+            <li className={styles.message} key={el.id}>
+              <img src={el.user.profile} alt='user profile' />
+              {el.content}
+            </li>
           ))}
         </ul>
       </div>
