@@ -54,7 +54,7 @@ const Todos = () => {
         </form>
       </ul>
       <p className={styles.addTodo}>
-        <Plus />
+        <Plus height={20} width={20} />
         Add To do
       </p>
     </div>

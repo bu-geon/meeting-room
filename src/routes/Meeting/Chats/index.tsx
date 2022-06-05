@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, MouseEvent, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectRoomId } from 'features/roomSlice'
 import { selectUser } from 'features/userSlice'
@@ -15,6 +15,7 @@ const Chats = () => {
   const roomId = useSelector(selectRoomId)
   const user = useSelector(selectUser)
   const [messages, setMessages] = useState<any>([])
+  const messagesBottomRef = useRef<any>()
 
   const handleSendMessage = (e: FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -29,6 +30,12 @@ const Chats = () => {
     setInput(e.currentTarget.value)
   }
 
+  const scrollToBottom = () => {
+    if (messagesBottomRef.current) {
+      messagesBottomRef.current.scrollTop = messagesBottomRef.current.sccrollHeight
+    }
+  }
+
   useEffect(() => {
     onSnapshot(collection(db, 'rooms', roomId!, 'messages'), (snapshot) => {
       const result = snapshot.docs.map((doc) => ({
@@ -40,13 +47,14 @@ const Chats = () => {
       const sortedMessages = result.sort((a, b) => a.timestamp - b.timestamp)
 
       setMessages(sortedMessages)
+      scrollToBottom()
     })
   }, [roomId])
 
   return (
     <div className={styles.chats}>
       <h4>CHATS</h4>
-      <ul className={styles.chatsLog}>
+      <ul className={styles.chatsLog} ref={messagesBottomRef}>
         {messages.map((el: any) => (
           <li className={cx(styles.message, { [styles.mine]: el.user.uid === user?.uid })} key={el.id}>
             <img src={el.user.profile} alt='user profile' />
