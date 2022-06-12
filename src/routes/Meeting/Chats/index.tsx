@@ -9,7 +9,7 @@ import cx from 'classnames'
 import styles from './chats.module.scss'
 
 import { Send } from 'assets'
-import { IMessage, IUserInfo } from 'types/user'
+import { IMessage } from 'types/user'
 
 const Chats = () => {
   const [input, setInput] = useState('')
