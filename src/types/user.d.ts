@@ -1,3 +1,5 @@
+import { Timestamp } from 'firebase/firestore'
+
 export interface IUserInfo {
   displayName: string
   email: string
@@ -7,4 +9,11 @@ export interface IUserInfo {
 
 export interface IUserState {
   user: IUserInfo | null
+}
+
+export interface IMessage {
+  id: string
+  content: string
+  user: string
+  timestamp: Timestamp
 }

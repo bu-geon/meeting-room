@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, MouseEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, FormEvent, LegacyRef, MouseEvent, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectRoomId } from 'features/roomSlice'
 import { selectUser } from 'features/userSlice'
@@ -9,13 +9,14 @@ import cx from 'classnames'
 import styles from './chats.module.scss'
 
 import { Send } from 'assets'
+import { IMessage } from 'types/user'
 
 const Chats = () => {
   const [input, setInput] = useState('')
   const roomId = useSelector(selectRoomId)
   const user = useSelector(selectUser)
-  const [messages, setMessages] = useState<any>([])
-  const messagesBottomRef = useRef<any>()
+  const [messages, setMessages] = useState<IMessage[]>([])
+  const messagesBottomRef = useRef<HTMLUListElement>(null)
 
   const handleSendMessage = (e: FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -32,21 +33,22 @@ const Chats = () => {
 
   const scrollToBottom = () => {
     if (messagesBottomRef.current) {
-      messagesBottomRef.current.scrollTop = messagesBottomRef.current.sccrollHeight
+      messagesBottomRef.current.scrollTop = messagesBottomRef.current.scrollHeight
     }
   }
 
   useEffect(() => {
     onSnapshot(collection(db, 'rooms', roomId!, 'messages'), (snapshot) => {
-      const result = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        content: doc.data().message,
-        user: doc.data().user,
-        timestamp: doc.data().timestamp,
-      }))
-      const sortedMessages = result.sort((a, b) => a.timestamp - b.timestamp)
+      const result = snapshot.docs
+        .map((doc) => ({
+          id: doc.id,
+          content: doc.data().message,
+          user: doc.data().user,
+          timestamp: doc.data().timestamp,
+        }))
+        .sort((a, b) => a.timestamp - b.timestamp)
 
-      setMessages(sortedMessages)
+      setMessages(result)
       scrollToBottom()
     })
   }, [roomId])
