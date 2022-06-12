@@ -14,6 +14,6 @@ export interface IUserState {
 export interface IMessage {
   id: string
   content: string
-  user: string
+  user: IUserInfo
   timestamp: Timestamp
 }

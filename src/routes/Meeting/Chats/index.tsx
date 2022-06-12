@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, LegacyRef, MouseEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, FormEvent, MouseEvent, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectRoomId } from 'features/roomSlice'
 import { selectUser } from 'features/userSlice'
@@ -9,7 +9,7 @@ import cx from 'classnames'
 import styles from './chats.module.scss'
 
 import { Send } from 'assets'
-import { IMessage } from 'types/user'
+import { IMessage, IUserInfo } from 'types/user'
 
 const Chats = () => {
   const [input, setInput] = useState('')
@@ -57,7 +57,7 @@ const Chats = () => {
     <div className={styles.chats}>
       <h4>CHATS</h4>
       <ul className={styles.chatsLog} ref={messagesBottomRef}>
-        {messages.map((el: any) => (
+        {messages.map((el: IMessage) => (
           <li className={cx(styles.message, { [styles.mine]: el.user.uid === user?.uid })} key={el.id}>
             <img src={el.user.profile} alt='user profile' />
             <span className={styles.text}>{el.content}</span>
